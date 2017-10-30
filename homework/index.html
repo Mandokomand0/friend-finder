@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>index</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+			<h1 class="text-center"><span class="glyphicon glyphicon-fire"></span>Kirk's Magical Friend Finder</h1>
+			<hr>
+			<h2 class="text-center">Find your new best friend today!</h2>
+			<br>
+
+			<div class="text-center">
+				<a href="/search"><button type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-list-alt"></span> </button></a>
+			</div>
+		</div>
+
+
+
+		<div class="row">
+			<div class="col-md-1">
+					<!--buffer column-->
+			</div>
+			<div class="col-md-10">
+					<!--form starts and stays in this column-->
+					<div class="panel pannel-default">
+						<div class="panel-heading">
+							<h3>Let's hear about who you are.</h3>
+						</div>
+											<div class="panel-body">
+
+						<form role="form">
+
+							<div class="form-group">
+								<label for="">Provide only your first name</label>
+								<input type="text" class="form-control" id="name">
+							</div>
+							<div class="form-group">
+								<label for="">Provide and email so you can connect with your new friend.</label>
+								<input type="text" class="form-control" id="email">
+							</div>
+							<div class="form-group">
+								<label for="">Please submit a url link to a picutre of yourself so your new friend can see how beautiful you are.</label>
+								<input type="text" class="form-control" id="picture">
+							</div>
+
+							<div class="form-group">
+								<label for="">1. Rate your love or hatred of the show, "Rick and Morty" 1 being the lowest and 5 being the highest.</label>
+								<input type="number" name="rick_rating" min="1" max="5" class="form-control" id="q1">
+							</div>
+							<div class="form-group">
+								<label for="">2. Rate your thoughts on video games. 1 being hate and 5 being you love them.</label>
+								<input type="number" name="sanity_meter" min="1" max="5" class="form-control" id="q2">
+							</div>							
+							<div class="form-group">
+								<label for="">3. Rate your knowledge of "Lord of the Rings". 1-5</label>
+								<input type="number" name="nerd_meter" min="1" max="5" class="form-control" id="q3">
+							</div>
+							<div class="form-group">
+								<label for="">4. Rate your feelings about cosplaying. 1 (hate or don't have no idea) - 5 (Love it)</label>
+								<input type="number" name="cosplay_meter" min="1" max="5" class="form-control" id="q4">
+							</div>		
+								<div class="form-group">
+									<label for="">5. Rate your feelings about comics. 1-5</label>
+									<input type="number" name="avatar_meter" min="1" max="5" class="form-control" id="q5">
+								</div>				
+							<div class="form-group">
+								<label for="">6. Rate your level of knowledge of physics. 1-5</label>
+								<input type="number" name="quantum_meter" min="1" max="5" class="form-control" id="q6">
+							</div>
+							<div class="form-group">
+								<label for="">7. Rate your level of knowledge of history. 1-5</label>
+								<input type="number" name="astro_meter" min="1" max="5" class="form-control" id="q7">
+							</div>	
+							<div class="form-group">
+								<label for="">8. Rate your level of knowledge of theatre. 1-5</label>
+								<input type="number" name="archaeological_meter" min="1" max="5" class="form-control" id="q8">
+							</div>
+							<div class="form-group">
+								<label for="">9. Rate your alcohol tolerance level. 1 (lightweight) - 5 (20 shots or more)</label>
+								<input type="number" name="alcohol_meter" min="1" max="5" class="form-control" id="q9">
+							</div>
+							<div class="form-group">
+								<label for="">10. Rate your love of scary movies. 1 being you hate them. 5 being you love them.</label>
+								<input type="number" name="horror_meter" min="1" max="5" class="form-control" id="q10">
+							</div>
+
+							<button type="submit" class="btn btn-primary submit">Submit</button>
+						</form>
+
+					</div>
+					</div>
+			</div>	
+			<div class="col-md-1">
+					<!--buffer column-->
+			</div>
+		</div>
+
+	</div>
+</body>
+<script type="text/javascript">
+	//Key to find new friend
+	var currentNewFriend = 0;
+	//score to determine if a closer match can be found. Defaulted to create an impossilbe number that will always be replaced by a friend in our data
+	var currentNewFriendDiff = 50;
+	//submit buttons starting the finds
+	$(".submit").on("click", function(){
+		//array used to compare values
+		var userScore = [ 
+			$('#q1').val().trim(),
+			$('#q2').val().trim(),
+			$('#q3').val().trim(),
+			$('#q4').val().trim(),
+			$('#q5').val().trim(),
+			$('#q6').val().trim(),
+			$('#q7').val().trim(),
+			$('#q8').val().trim(),
+			$('#q9').val().trim(),
+			$('#q10').val().trim()
+	];
+		// send new values to our friends.js
+		var newFriend = {
+			name: $('#name').val().trim(),
+			email: $('#email').val().trim(),
+			photo: $('#photo').val().trim(),
+			scores: [
+				$('#q1').val().trim(),
+				$('#q2').val().trim(),
+				$('#q3').val().trim(),
+				$('#q4').val().trim(),
+				$('#q5').val().trim(),
+				$('#q6').val().trim(),
+				$('#q7').val().trim(),
+				$('#q8').val().trim(),
+				$('#q9').val().trim(),
+				$('#q10').val().trim()
+			] 
+		};
+
+
+		var currentURL = window.location.origin;
+
+	    $.post(currentURL + "/api/frineds", newFriend, function(data){
+	    	console.log("a new person has been added to the list!!!!");
+	    });
+	  //provide model telling someone of their new best friend
+	  	$.get(currentURL + "/api/friends", function(req, res){
+	  		//bring our frineds in
+	  		return res.json(friends);
+	  		//run through friends
+	  			for (var i = 0; friends.length < i; i++) {
+	  				//sort through friends and test their differences
+	  				for (var u = 0; u > 9; i++) {
+	  					var diffTest = friends[i].scores[u] - userScore[u];
+	  					if (diffTest < 0) {
+	  						diffTest *= -1;
+	  						totalDiff += diffTest;
+	  					}else{
+	  						totalDiff += diffTest;
+	  					}
+	  				}
+	  				//test to replace the new friend. First come first serve.
+	  			}.then(function(totalDiff) {
+	  				if (totalDiff < currentFriendDiff) {
+	  					currentNewFriend = i;
+	  					currentNewFriendDiff = totalDiff
+	  				}
+	  			});
+	  				
+	  	}.then(function(currentNewFriend) {
+	  		var modal = '<div class="modal" tabindex="-1" role="dialog"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header">'
+	  		modal += '<h5 class="modal-title">Your new friend is...' + friends[currentNewFriend].name + '</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close">'
+			modal +='<span aria-hidden="true">&times;</span></button></div><div class="modal-body"><img src="' + friends[currentNewFriend].photo + '"><br>'
+			modal += '<p>' + friends[currentNewFriend].email + ' <p></div><div class="modal-footer"><button type="button" class="btn btn-primary">Save changes</button>'
+			modal +='<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div></div>'
+
+	  		 $("#myModal").modal({backdrop: true});
+	  	})
+
+	});
+
+</script>
+</html>
+
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    
+  </div>
+
+</div>
+
+
+
+
+<!-- Modal templet prior to insertion
+'<div class="modal" tabindex="-1" role="dialog"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header">'
+modal += '<h5 class="modal-title">Your new friend is...' + friends[currentNewFriend].name + '</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close">'
+modal +='<span aria-hidden="true">&times;</span></button></div><div class="modal-body"><img src="' + friends[currentNewFriend].photo + '"><br>'
+modal += '<p>' + friends[currentNewFriend].email + ' <p></div><div class="modal-footer"><button type="button" class="btn btn-primary">Save changes</button>'
+modal +='<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div></div>'-->
